@@ -5,7 +5,7 @@ from sklearn.model_selection import cross_val_score
 import pandas as pd
 import sqlite3
 DB='data/DB_futbol.db'
-MODEL='advertising_model'
+MODEL='modelos/gbc_model'
 
 os.chdir(os.path.dirname(__file__))
 
