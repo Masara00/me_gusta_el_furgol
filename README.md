@@ -1,4 +1,4 @@
-![imagen_portada]()
+![imagen_portada](https://github.com/Masara00/me_gusta_el_furgol/blob/main/Img/readme.jpg)
 
 # **me_gusta_el_furgol**  ⚽
 
