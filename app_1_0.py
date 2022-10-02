@@ -4,6 +4,8 @@ import pickle
 from sklearn.model_selection import cross_val_score
 import pandas as pd
 import sqlite3
+import numpy as np
+
 DB='data/DB_futbol.db'
 MODEL='modelos/gbc_model'
 
@@ -82,6 +84,57 @@ def new_data():
 
 
 # --PREDICCIÓN--
+@app.route('/predict', methods=['GET'])
+def predict():
+    model = pickle.load(open(MODEL,'rb'))
+    lista_equipos = []
+
+    # Leer lista de equipos
+    with open(r'data/lista_equipos.txt', 'r') as fp:
+        for line in fp:
+            # remove linebreak from a current name
+            x = line[:-1]
+            # add current item to the list
+            lista_equipos.append(x)
+    
+    
+    home_team = request.args.get('home_team', None)
+    away_team = request.args.get('away_team', None)
+    
+    if home_team is None or away_team is None:
+        return "Faltan argumentos para realizar la predicción"
+
+    elif home_team not in lista_equipos or away_team not in lista_equipos:
+        return "El equipo no existe. \nComprueba que esté escrito correctamente.\n"+"LISTA DE EQUIPOS:\n"+str(lista_equipos)
+
+    else:
+        lista_columnas_dummies = []
+
+        # Leer lista_columnas_dummies
+        with open(r'data/lista_columnas_dummies.txt', 'r') as fp:
+            for line in fp:
+                # remove linebreak from a current name
+                x = line[:-1]
+                # add current item to the list
+                lista_columnas_dummies.append(x)
+        # Crea df de dummies
+        df = (pd.DataFrame(np.zeros((1, len(lista_columnas_dummies))),columns=lista_columnas_dummies)).astype(int)
+        # Modifica el df de dummies con los equipos de la predicción
+        colum_home='home_team_'+str(home_team)
+        colum_away='away_team_'+str(away_team)
+        df[colum_home]=1
+        df[colum_away]=1
+
+
+        prediction = model.predict(df)
+        predict_texto = ''
+        if prediction == 0:
+            predict_texto = ' Empate'
+        elif prediction == 1:
+            predict_texto = ' Gana el equipo local: '+ str(home_team)
+        else:
+            predict_texto = ' Gana el equipo visitante: '+ str(away_team)
+        return "La predicción para el partido "+str(home_team)+" vs "+ str(away_team)+ " es :"+str(prediction)+"."+str(predict_texto)
 
 
 # (--EJECUTAR--)
