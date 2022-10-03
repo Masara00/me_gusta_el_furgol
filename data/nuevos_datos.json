@@ -1,0 +1,139 @@
+{
+    "partidos":[{
+     "season": "2018/2019",
+     "date": "2018-11-30",
+     "country_name": "Spain",
+     "home_team": "Real Madrid CF",
+     "away_team": "FC Barcelona",
+     "home_team_goal": 3,
+     "away_team_goal": 2,
+     "result": 1
+     },
+     {
+        "season": "2018/2019",
+        "date": "2018-11-30",
+        "country_name": "Spain",
+        "home_team": "Real Madrid CF",
+        "away_team": "FC Barcelona",
+        "home_team_goal": 3,
+        "away_team_goal": 2,
+        "result": 1
+        },
+    {
+            "season": "2018/2019",
+            "date": "2018-11-30",
+            "country_name": "Spain",
+            "home_team": "Real Madrid CF",
+            "away_team": "FC Barcelona",
+            "home_team_goal": 3,
+            "away_team_goal": 2,
+            "result": 1
+            },
+            {
+                "season": "2018/2019",
+                "date": "2018-11-30",
+                "country_name": "Spain",
+                "home_team": "Real Madrid CF",
+                "away_team": "FC Barcelona",
+                "home_team_goal": 3,
+                "away_team_goal": 2,
+                "result": 1
+                },
+                {
+                    "season": "2018/2019",
+                    "date": "2018-11-30",
+                    "country_name": "Spain",
+                    "home_team": "Real Madrid CF",
+                    "away_team": "FC Barcelona",
+                    "home_team_goal": 3,
+                    "away_team_goal": 2,
+                    "result": 1
+                    },
+                    {
+                        "season": "2018/2019",
+                        "date": "2018-11-30",
+                        "country_name": "Spain",
+                        "home_team": "Real Madrid CF",
+                        "away_team": "FC Barcelona",
+                        "home_team_goal": 3,
+                        "away_team_goal": 2,
+                        "result": 1
+             },{
+                "season": "2018/2019",
+                "date": "2018-11-30",
+                "country_name": "Spain",
+                "home_team": "Real Madrid CF",
+                "away_team": "FC Barcelona",
+                "home_team_goal": 3,
+                "away_team_goal": 2,
+                "result": 1
+            },{
+                    "season": "2018/2019",
+                    "date": "2018-11-30",
+                    "country_name": "Spain",
+                    "home_team": "Real Madrid CF",
+                    "away_team": "FC Barcelona",
+                    "home_team_goal": 3,
+                    "away_team_goal": 2,
+                    "result": 1
+        },{
+            "season": "2018/2019",
+            "date": "2018-11-30",
+            "country_name": "Spain",
+            "home_team": "Real Madrid CF",
+            "away_team": "FC Barcelona",
+            "home_team_goal": 3,
+            "away_team_goal": 2,
+            "result": 1
+        },{
+            "season": "2018/2019",
+            "date": "2018-11-30",
+            "country_name": "Spain",
+            "home_team": "Real Madrid CF",
+            "away_team": "FC Barcelona",
+            "home_team_goal": 3,
+            "away_team_goal": 2,
+            "result": 1
+        },{
+            "season": "2018/2019",
+            "date": "2018-11-30",
+            "country_name": "Spain",
+            "home_team": "Real Madrid CF",
+            "away_team": "FC Barcelona",
+            "home_team_goal": 3,
+            "away_team_goal": 2,
+            "result": 1
+        },{
+            "season": "2018/2019",
+            "date": "2018-11-30",
+            "country_name": "Spain",
+            "home_team": "Real Madrid CF",
+            "away_team": "FC Barcelona",
+            "home_team_goal": 3,
+            "away_team_goal": 2,
+            "result": 1
+        },{
+            "season": "2018/2019",
+            "date": "2018-11-30",
+            "country_name": "Spain",
+            "home_team": "Real Madrid CF",
+            "away_team": "FC Barcelona",
+            "home_team_goal": 3,
+            "away_team_goal": 2,
+            "result": 1
+        },
+
+
+        
+                        {
+                            "season": "2018/2019",
+                            "date": "2018-11-30",
+                            "country_name": "Spain",
+                            "home_team": "Real Madrid CF",
+                            "away_team": "FC Barcelona",
+                            "home_team_goal": 3,
+                            "away_team_goal": 2,
+                            "result": 1
+                            }
+    ]
+}
