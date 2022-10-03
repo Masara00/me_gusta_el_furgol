@@ -20,7 +20,7 @@ Y si son muy osados, pueden utilizar esta  BBDD y su aplicación para apostar co
 
 ### Proyecto realizado por:
 
-Mario Sabrás y Javier Tenorio para *The Bridge | Digital Talent Accelerator*.
+Mario Sabrás, Javier Tenorio y Tarik El Hannach para *The Bridge | Digital Talent Accelerator*.
 
 
 ### Procedencia de los datos:
