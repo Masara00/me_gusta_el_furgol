@@ -62,7 +62,7 @@ def hello():
 def all_table():
     username = "admin"
     password = "12345678"
-    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+    host = "database-1.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
 
     db = pymysql.connect(host = host,
                      user = username,
@@ -110,16 +110,16 @@ def new_data():
 
         username = "admin"
         password = "12345678"
-        host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+        host = "database-1.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
 
         db = pymysql.connect(host = host,
-                        user = username,
-                        password = password,
-                        cursorclass = pymysql.cursors.DictCursor)
+                         user = username,
+                         password = password,
+                         cursorclass = pymysql.cursors.DictCursor)
 
         cursor = db.cursor()
 
-        cursor.connection.commit()
+        #cursor.connection.commit()
         use_db = ''' USE DB_FURBOL'''
         cursor.execute(use_db)
 
@@ -133,7 +133,7 @@ def new_data():
         #        cursor = sql.cursor()
 
         lista_valores = new_data_df.values.tolist()
-        cursor.executemany("INSERT INTO DB_FURBOL VALUES (?,?,?,?,?,?,?,?)", lista_valores)
+        cursor.executemany("INSERT INTO DB_FURBOL VALUES (%s,%s,%s,%s,%s,%s,%s,%s)", lista_valores)
 
         db.commit()
         db.close()
@@ -169,7 +169,7 @@ def monitor_new_data():
 
     username = "admin"
     password = "12345678"
-    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+    host = "database-1.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
 
     db = pymysql.connect(host = host,
                      user = username,
@@ -227,12 +227,12 @@ def monitor_new_data():
 
 
 # --REENTRENAMIENTO--
-@app.route('/retrain', methods=['PUT'])
+@app.route('/retrain', methods=['GET'])
 def retrain():
 
     username = "admin"
     password = "12345678"
-    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+    host = "database-1.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
 
     db = pymysql.connect(host = host,
                      user = username,
