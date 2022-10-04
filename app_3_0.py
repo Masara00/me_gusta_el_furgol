@@ -7,6 +7,7 @@ import sqlite3
 import numpy as np
 import json
 from sklearn.metrics import accuracy_score
+import pymysql 
 
 # Para ingest_data
 from flask_wtf import FlaskForm
@@ -15,7 +16,7 @@ from werkzeug.utils import secure_filename
 from wtforms.validators import InputRequired
 
 
-DB='data/DB_futbol.db'
+#DB='data/DB_futbol.db'
 MODEL='modelos/gbc_model'
 
 
@@ -59,11 +60,34 @@ def hello():
 # --MOSTRAR TODOS LOS DATOS--
 @app.route('/mostrar_datos', methods=['GET'])
 def all_table():
-    connection = sqlite3.connect(DB)
-    cursor = connection.cursor()
-    select_all = "SELECT * FROM table_partidos"
-    result = cursor.execute(select_all).fetchall()
-    connection.close()
+    username = "admin"
+    password = "12345678"
+    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+
+    db = pymysql.connect(host = host,
+                     user = username,
+                     password = password,
+                     cursorclass = pymysql.cursors.DictCursor)
+
+    cursor = db.cursor()
+
+    cursor.connection.commit()
+    use_db = ''' USE DB_FURBOL'''
+    cursor.execute(use_db)
+
+
+    sql = '''SELECT * FROM DB_FURBOL'''
+    cursor.execute(sql)
+    result = cursor.fetchall()
+
+
+
+
+#    connection = sqlite3.connect(DB)
+#    cursor = connection.cursor()
+#    select_all = "SELECT * FROM table_partidos"
+#    result = cursor.execute(select_all).fetchall()
+    db.close()
     return jsonify(result)
 
 
@@ -83,16 +107,38 @@ def new_data():
         # Flatten data
         new_data_df = pd.json_normalize(data, record_path =['partidos'])
 
-        sql = sqlite3.connect(DB)
-        cursor = sql.cursor()
 
-        lista_valores = new_data_df.values.tolist()
-        cursor.executemany("INSERT INTO table_partidos VALUES (?,?,?,?,?,?,?,?)", lista_valores)
+    username = "admin"
+    password = "12345678"
+    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
 
-        sql.commit()
-        sql.close()
+    db = pymysql.connect(host = host,
+                     user = username,
+                     password = password,
+                     cursorclass = pymysql.cursors.DictCursor)
 
-        return "File has been uploaded."
+    cursor = db.cursor()
+
+    cursor.connection.commit()
+    use_db = ''' USE DB_FURBOL'''
+    cursor.execute(use_db)
+
+
+    sql = '''SELECT * FROM DB_FURBOL'''
+    cursor.execute(sql)
+    result = cursor.fetchall()
+
+
+#        sql = sqlite3.connect(DB)
+#        cursor = sql.cursor()
+
+    lista_valores = new_data_df.values.tolist()
+    cursor.executemany("INSERT INTO DB_FURBOL VALUES (?,?,?,?,?,?,?,?)", lista_valores)
+
+    db.commit()
+    db.close()
+
+    return "File has been uploaded."
     return render_template('index.html', form=form)
 
 
@@ -120,9 +166,31 @@ def best_acc():
 # --MONITORIZACIÓN DEL MODELO CON NUEVOS DATOS--
 @app.route('/monitor_new_dates', methods=["GET","POST"])
 def monitor_new_data():
+
+    username = "admin"
+    password = "12345678"
+    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+
+    db = pymysql.connect(host = host,
+                     user = username,
+                     password = password,
+                     cursorclass = pymysql.cursors.DictCursor)
+
+    cursor = db.cursor()
+
+    cursor.connection.commit()
+    use_db = ''' USE DB_FURBOL'''
+    cursor.execute(use_db)
+
+
+    sql = '''SELECT * FROM DB_FURBOL'''
+    cursor.execute(sql)
+    result = cursor.fetchall()
+
+
     # Conexión con DB
-    connection = sqlite3.connect(DB)
-    query = "SELECT * FROM table_partidos"
+#    connection = sqlite3.connect(DB)
+#    query = "SELECT * FROM table_partidos"
     # Leemos el JSON para utilizar su longitud
     with open('data/nuevos_datos.json','r') as f:
             data = json.loads(f.read())
@@ -130,7 +198,7 @@ def monitor_new_data():
     new_data_df = pd.json_normalize(data, record_path =['partidos'])
 
     # Leemos todos los datos de la tabla partidos
-    df_partidos = pd.read_sql(query, connection)
+    df_partidos = pd.read_sql(sql, db)
     df_2 = pd.get_dummies(df_partidos[["home_team", "away_team"]])
     df_partidos_dummies=df_partidos.join(df_2)
 
@@ -161,17 +229,39 @@ def monitor_new_data():
 # --REENTRENAMIENTO--
 @app.route('/retrain', methods=['PUT'])
 def retrain():
-    connection = sqlite3.connect(DB)
-    cursor = connection.cursor()
-    query = "SELECT * FROM table_partidos"
-    result = cursor.execute(query).fetchall()
+
+    username = "admin"
+    password = "12345678"
+    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+
+    db = pymysql.connect(host = host,
+                     user = username,
+                     password = password,
+                     cursorclass = pymysql.cursors.DictCursor)
+
+    cursor = db.cursor()
+
+    cursor.connection.commit()
+    use_db = ''' USE DB_FURBOL'''
+    cursor.execute(use_db)
+
+
+    sql = '''SELECT * FROM DB_FURBOL'''
+    cursor.execute(sql)
+    result = cursor.fetchall()
+
+
+#    connection = sqlite3.connect(DB)
+#    cursor = connection.cursor()
+#    query = "SELECT * FROM table_partidos"
+#    result = cursor.execute(query).fetchall()
 
     # Leemos todos los datos de la tabla partidos
-    df_partidos = pd.read_sql(query, connection)
+    df_partidos = pd.read_sql(sql, db)
     df_2 = pd.get_dummies(df_partidos[["home_team", "away_team"]])
     df_partidos_dummies=df_partidos.join(df_2)
 
-    connection.close()
+    db.close()
 
     # Leemos el JSON para utilizar su longitud
     with open('data/nuevos_datos.json','r') as f:
