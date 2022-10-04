@@ -108,37 +108,37 @@ def new_data():
         new_data_df = pd.json_normalize(data, record_path =['partidos'])
 
 
-    username = "admin"
-    password = "12345678"
-    host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
+        username = "admin"
+        password = "12345678"
+        host = "database-soccer.ckwuwtn1emlt.us-east-1.rds.amazonaws.com" 
 
-    db = pymysql.connect(host = host,
-                     user = username,
-                     password = password,
-                     cursorclass = pymysql.cursors.DictCursor)
+        db = pymysql.connect(host = host,
+                         user = username,
+                         password = password,
+                         cursorclass = pymysql.cursors.DictCursor)
 
-    cursor = db.cursor()
+        cursor = db.cursor()
 
-    cursor.connection.commit()
-    use_db = ''' USE DB_FURBOL'''
-    cursor.execute(use_db)
+        cursor.connection.commit()
+        use_db = ''' USE DB_FURBOL'''
+        cursor.execute(use_db)
 
 
-    sql = '''SELECT * FROM DB_FURBOL'''
-    cursor.execute(sql)
-    result = cursor.fetchall()
+        sql = '''SELECT * FROM DB_FURBOL'''
+        cursor.execute(sql)
+        result = cursor.fetchall()
 
 
 #        sql = sqlite3.connect(DB)
 #        cursor = sql.cursor()
 
-    lista_valores = new_data_df.values.tolist()
-    cursor.executemany("INSERT INTO DB_FURBOL VALUES (?,?,?,?,?,?,?,?)", lista_valores)
+        lista_valores = new_data_df.values.tolist()
+        cursor.executemany("INSERT INTO DB_FURBOL VALUES (?,?,?,?,?,?,?,?)", lista_valores)
 
-    db.commit()
-    db.close()
+        db.commit()
+        db.close()
 
-    return "File has been uploaded."
+        return "File has been uploaded."
     return render_template('index.html', form=form)
 
 
